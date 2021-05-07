@@ -1,6 +1,6 @@
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-ESX.RegisterUsableItem('kontrakt', function(source)
+ESX.RegisterUsableItem('contract', function(source)
 	TriggerClientEvent('qSellCar:openMenu', source)
 end)
 
@@ -28,25 +28,26 @@ AddEventHandler('qSellCar:acceptSell', function(plate, price, seller)
                     if ownerIdentifier == sellerXPlayer.identifier then
                       data = {}
                 
-                      TriggerClientEvent("FeedM:showNotification", _source, "Kupiłeś pojazd ~y~"..plate.."~s~ od ~r~"..sellerXPlayer.name, 5000)
+		      TriggerClientEvent("FeedM:showNotification", _source, _U('bought_vehicle', plate, sellerXPlayer.name), 5000)
                       sourceXPlayer.removeMoney(price)
                       sellerXPlayer.addMoney(price)     
                       MySQL.Sync.execute("UPDATE owned_vehicles SET owner=@owner WHERE plate=@plate", {['@owner'] = sourceXPlayer.identifier, ['@plate'] = plate})           
-                      TriggerClientEvent("FeedM:showNotification", seller, "Sprzedałeś pojazd ~y~"..plate.."~s~ dla ~r~"..sourceXPlayer.name, 5000)       
+                      TriggerClientEvent("FeedM:showNotification", seller, "Sprzedałeś pojazd ~y~"..plate.."~s~ dla ~r~"..sourceXPlayer.name, 5000)   
+		      TriggerClientEvent("FeedM:showNotification", seller, _U('sold_vehicle', plate, sourceXPlayer.name), 5000)   
                       TriggerClientEvent("qSellCar:sprzedano", seller, "seller")          
                       Citizen.Wait(500)
                       TriggerClientEvent("qSellCar:sprzedano", _source, "source")
                     else
-                        TriggerClientEvent("FeedM:showNotification", seller, "~r~To nie jest twój pojazd", 5000)
+                        TriggerClientEvent("FeedM:showNotification", seller, _U('not_owner'), 5000)
                     end
                 else
-                    TriggerClientEvent("FeedM:showNotification", seller, "~r~Nie ma pojazdu z taką rejestrcją", 5000)
+                    TriggerClientEvent("FeedM:showNotification", seller, _U('vehicle_not_exist'), 5000)
                 end
             
             end
         )
     else
-        TriggerClientEvent("FeedM:showNotification", seller, "~r~Kupującego nie stać na to auto", 5000)
-        TriggerClientEvent("FeedM:showNotification", source, "~r~Nie masz wystaczjąco gotówki", 5000)
+        TriggerClientEvent("FeedM:showNotification", seller, _U('buyer_cannot_afford'), 5000)
+        TriggerClientEvent("FeedM:showNotification", source, _U('not_money'), 5000)
     end
 end)
