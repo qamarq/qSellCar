@@ -17,5 +17,6 @@ client_scripts {
 
 dependencies {
     'FeedM',
-    'esx_vehicleshop'
+    'esx_vehicleshop',
+    'es_extended'
 }
