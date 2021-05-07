@@ -14,3 +14,8 @@ client_scripts {
     'config.lua',
     'client/main.lua'
 }
+
+depedency {
+    'FeedM',
+    'esx_vehicleshop'
+}
