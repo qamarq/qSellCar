@@ -15,7 +15,7 @@ end)
 RegisterNetEvent('qSellCar:openMenu')
 AddEventHandler('qSellCar:openMenu', function()
   if IsPedInAnyVehicle(PlayerPedId()) == false then
-    ESX.ShowNotification('Wsiądź do swojego auta')
+    ESX.ShowNotification(_U('enter_car'))
   else
     local playerPed = GetPlayerPed(-1)
     local vehicle       = GetVehiclePedIsIn(playerPed)
@@ -29,7 +29,7 @@ AddEventHandler('qSellCar:openMenu', function()
           OpenMenu(GetPlayerServerId(closestPlayer), plate)
         end
       else
-        ESX.ShowNotification('Nie jesteś właścicielem tego pojazdu')
+        ESX.ShowNotification(_U('not_owner'))
       end
     end, plate)
   end
@@ -50,20 +50,19 @@ function OpenMenu(playerId, plate)
 
   ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'cloak',
   {
-      title    = 'Sprzedaj pojazd',
+      title    = _U('sell_car'),
       align    = 'center',
       elements = elements
   }, function(data, menu)
 
       if data.current.value ~= nil then
-        ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'lookup_odznaka_number',
+        ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'sell_car',
         {
-          title = 'Wpisz kwote sprzedaży',
+          title = _U('enter_price'),
         }, function(data2, menu2)
           local length = string.len(data2.value)
           if data2.value == nil then
-
-            exports['mythic_notify']:SendAlert('error', 'Wpisz cenę!')
+            ESX.ShowNotification(_U('enter_valid_price'))
           else
             menu2.close()
             TriggerServerEvent('qSellCar:sellRequest', playerId, plate, data2.value)
@@ -80,15 +79,15 @@ end
 
 function OpenRequestMenu(targetName, plate, price, player)
   local elements = {
-      { label = 'Zaakceptuj', value = 'accept' },
-      { label = 'Odrzuć', value = 'reject' },
+      { label = _U('accept'), value = 'accept' },
+      { label = _U('reject'), value = 'reject' },
   }	
 
   ESX.UI.Menu.CloseAll()
 
   ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'cloak',
   {
-      title    = targetName.." chce ci sprzedać pojazd "..plate.." za "..price.."$",
+      title    = _U('want_sell', targetName, plate, price),
       align    = 'center',
       elements = elements
   }, function(data, menu)
