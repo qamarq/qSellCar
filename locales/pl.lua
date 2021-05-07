@@ -9,7 +9,7 @@ Locales['pl'] = {
   ['want_sell'] = '%s chce ci sprzedać pojazd %s za $%s',
   ['bought_vehicle'] = 'Kupiłeś pojazd ~y~%s~s~ od ~r~%s',
   ['sold_vehicle'] = 'Sprzedałeś pojazd ~y~%s~s~ dla ~r~%s',
-  ['vehicle_not_exist'] = 'Nie ma pojazdu z taką rejestracją',
+  ['vehicle_not_exist'] = '~r~Nie ma pojazdu z taką rejestracją',
   ['buyer_cannot_afford'] = '~r~Kupującego nie stać na to auto',
-  ['not_money'] = 'Nie masz wystaczjąco gotówki',
+  ['not_money'] = '~r~Nie masz wystaczjąco gotówki',
 }
