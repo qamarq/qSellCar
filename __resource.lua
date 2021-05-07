@@ -15,7 +15,7 @@ client_scripts {
     'client/main.lua'
 }
 
-depedency {
+dependencies {
     'FeedM',
     'esx_vehicleshop'
 }
