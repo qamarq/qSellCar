@@ -1,2 +1,2 @@
 # qSellCar
-Sell ypur cars on fivem server script
+Sell your cars on fivem server script
